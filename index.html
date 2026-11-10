@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102a56">
+  <title>BENTECH | School Report Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">B</div><div><strong>BENTECH</strong><small>REPORT MANAGEMENT</small></div></div>
+      <div class="school-switch"><label for="schoolSelect">ACTIVE SCHOOL</label><select id="schoolSelect"><option value="">Select school</option></select></div>
+      <nav id="navigation">
+        <button class="nav-link active" data-view="overview">▦ <span>Overview</span></button>
+        <button class="nav-link" data-view="students">♙ <span>Students</span></button>
+        <button class="nav-link" data-view="assessments">▤ <span>Assessments & Marks</span></button>
+        <button class="nav-link" data-view="reports">▣ <span>Report Cards</span></button>
+        <button class="nav-link" data-view="settings">⚙ <span>Account & Setup</span></button>
+      </nav>
+      <div class="sidebar-bottom"><span class="online-dot"></span> Secure school workspace <button id="logoutBtn" class="logout">Sign out</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><span class="eyebrow">SCHOOL PERFORMANCE PLATFORM</span><h1 id="pageTitle">Overview</h1></div><div class="user-box"><div class="avatar" id="userAvatar">B</div><div><strong id="userEmail">Not signed in</strong><small id="userRole">Welcome</small></div></div></header>
+      <section id="notice" class="notice hidden"></section>
+      <section id="authPanel" class="auth-wrap">
+        <div class="auth-card"><div class="auth-logo">B</div><span class="eyebrow">WELCOME BACK</span><h2>Sign in to your school</h2><p>Access your authorised school records, enter marks and prepare learner reports.</p>
+          <form id="authForm"><label>Email address<input id="email" type="email" required placeholder="name@school.ug"></label><label>Password<input id="password" type="password" required minlength="6" placeholder="Your password"></label><button class="primary full" type="submit">Sign in securely</button></form>
+          <button id="signupBtn" class="text-button">Create an account</button><p class="muted tiny">Access is restricted to approved school members. Your role and school permissions are enforced by the database.</p>
+        </div>
+      </section>
+      <section id="workspace" class="hidden">
+        <div id="view-overview" class="view">
+          <div class="welcome-banner"><div><span class="eyebrow light">BENTECH SCHOOL REPORT MANAGEMENT SYSTEM</span><h2>Better records. Clearer performance.</h2><p>Manage assessment results and produce consistent learner reports for O-Level and A-Level.</p></div><div class="banner-icon">▤</div></div>
+          <div class="stats-grid"><article class="stat-card"><span>Enrolled learners</span><strong id="studentCount">—</strong><small>Current school year</small></article><article class="stat-card"><span>Assessments</span><strong id="assessmentCount">—</strong><small>Created in this school</small></article><article class="stat-card"><span>Marks recorded</span><strong id="marksCount">—</strong><small>Across assessments</small></article><article class="stat-card"><span>School access</span><strong id="roleCount">—</strong><small>Your assigned role</small></article></div>
+          <div class="panel"><div class="panel-head"><div><h3>Getting started</h3><p>Choose a task to continue working.</p></div></div><div class="quick-grid"><button data-go="students"><b>♙</b><strong>View students</strong><small>Browse the current learner register</small></button><button data-go="assessments"><b>▤</b><strong>Record marks</strong><small>Open an assessment and enter scores</small></button><button data-go="reports"><b>▣</b><strong>Generate reports</strong><small>Prepare a printable learner report</small></button></div></div>
+        </div>
+        <div id="view-students" class="view hidden"><div class="panel"><div class="panel-head"><div><h3>Student register</h3><p>Current school enrolments.</p></div><input id="studentSearch" class="search" placeholder="Search name or admission no."></div><div class="table-wrap"><table><thead><tr><th>Admission No.</th><th>Student</th><th>Sex</th><th>Class</th><th>Stream</th><th>Status</th></tr></thead><tbody id="studentsBody"><tr><td colspan="6" class="empty">Select a school to load learners.</td></tr></tbody></table></div></div></div>
+        <div id="view-assessments" class="view hidden"><div class="panel"><div class="panel-head"><div><h3>Assessments & marks</h3><p>Select an assessment to enter or update learner scores.</p></div></div><div class="filters"><label>Assessment<select id="assessmentSelect"><option value="">Choose assessment</option></select></label><button id="loadMarks" class="primary">Load mark sheet</button></div><div id="assessmentMeta" class="muted"></div><div class="table-wrap"><table><thead><tr><th>Admission No.</th><th>Learner</th><th>Score</th><th>Comment</th></tr></thead><tbody id="marksBody"><tr><td colspan="4" class="empty">Choose an assessment to begin.</td></tr></tbody></table></div><div class="actions"><button id="saveMarks" class="primary" disabled>Save marks</button><span id="saveStatus" class="muted"></span></div></div></div>
+        <div id="view-reports" class="view hidden"><div class="panel"><div class="panel-head"><div><h3>Learner report card</h3><p>Generate a printable summary from recorded assessment marks.</p></div></div><div class="filters"><label>Student<select id="reportStudent"><option value="">Choose learner</option></select></label><button id="generateReport" class="primary">Generate report</button></div><div id="reportOutput" class="report-output"><p class="empty">Choose a learner to prepare a report.</p></div></div></div>
+        <div id="view-settings" class="view hidden"><div class="panel"><div class="panel-head"><div><h3>Account & setup</h3><p>Workspace connection and access information.</p></div></div><div class="setup-list"><div><span>Signed-in account</span><strong id="settingsEmail">—</strong></div><div><span>School role</span><strong id="settingsRole">—</strong></div><div><span>Database</span><strong>Connected Supabase project</strong></div><div><span>Curriculum support</span><strong>Uganda O-Level & A-Level</strong></div><div><span>Security</span><strong>Row-level security enabled</strong></div></div><div class="callout"><strong>First-time setup</strong><p>If no school appears in the selector, an authorised platform administrator must create the school and assign your user account a school membership. Do not share passwords or service-role keys.</p></div></div></div>
+      </section>
+      <footer>© <span id="year"></span> BENTECH School Report Management System <span>Built for secure academic records</span></footer>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
+</body></html>
